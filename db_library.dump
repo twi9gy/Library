@@ -1,0 +1,216 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: book; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE book (
+    id integer NOT NULL,
+    user_id_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    author character varying(200) NOT NULL,
+    cover character varying(255) NOT NULL,
+    file_book character varying(255) NOT NULL,
+    date_reading date NOT NULL
+);
+
+
+ALTER TABLE public.book OWNER TO postgres;
+
+--
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE book_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.book_id_seq OWNER TO postgres;
+
+--
+-- Name: migration_versions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE migration_versions (
+    version character varying(14) NOT NULL,
+    executed_at timestamp(0) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.migration_versions OWNER TO postgres;
+
+--
+-- Name: COLUMN migration_versions.executed_at; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN migration_versions.executed_at IS '(DC2Type:datetime_immutable)';
+
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "user" (
+    id integer NOT NULL,
+    username character varying(180) NOT NULL,
+    roles json NOT NULL,
+    password character varying(255) NOT NULL,
+    email character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY book (id, user_id_id, name, author, cover, file_book, date_reading) FROM stdin;
+1	6	Теория игр	Мартюшева	c62a076017f580febc844165444e24db.jpeg	64b657c2765443389c82f32a29a4fcd2.doc	2015-01-01
+2	3	Лавка кошмаров	Хай Магдалена	4e468ed9bd95f653727260a8e4ad12bb.png	099b987c18d730427bf20b3c35b0a477.txt	2018-05-08
+3	4	Шторм войны	Авеярд Виктория	343b81ccbe4d54e2516cf81912ec3354.jpeg	bf0ef6f46ad51df789d731f88f21876e.pdf	2020-06-06
+\.
+
+
+--
+-- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('book_id_seq', 3, true);
+
+
+--
+-- Data for Name: migration_versions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY migration_versions (version, executed_at) FROM stdin;
+20200604124241	2020-06-04 12:43:08
+20200604174910	2020-06-04 17:49:24
+\.
+
+
+--
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "user" (id, username, roles, password, email) FROM stdin;
+3	User_0	["ROLE_ADMIN"]	$argon2id$v=19$m=65536,t=4,p=1$gidQqkdXTtMaSvLKrB+93g$GnawUBZxzSA7XdaNslzwjm1CHZk45sFHokK+0abwgeI	Email_User_0@mail.ru
+4	User_1	["ROLE_USER"]	$argon2id$v=19$m=65536,t=4,p=1$FmjP6GYuo7iSEpBizP4DiQ$VAiOXqOPJJSROEIPkitxxprelkH1alKr4mRYr+FPA/s	Email_User_1@mail.ru
+5	twiggy	["ROLE_USER"]	$argon2id$v=19$m=65536,t=4,p=1$rLzEYZHqywsQCSsao9BYzw$8Mt4aK6LPlkMNZJroFdA88Ah9VEy5/qLiz8StamZAVQ	twi9gy@mail.ru
+6	vadim	["ROLE_USER"]	$argon2id$v=19$m=65536,t=4,p=1$smYZyAFvlbv9CS3ttnrEWA$HbHTD2KXeJVKuzXxG45W/uY+MqZjBEAvWSDnHWa304k	vadim@mail.ru
+\.
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 6, true);
+
+
+--
+-- Name: book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY book
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: migration_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY migration_versions
+    ADD CONSTRAINT migration_versions_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_cbe5a3319d86650f; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX idx_cbe5a3319d86650f ON book USING btree (user_id_id);
+
+
+--
+-- Name: uniq_8d93d649f85e0677; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_8d93d649f85e0677 ON "user" USING btree (username);
+
+
+--
+-- Name: fk_cbe5a3319d86650f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY book
+    ADD CONSTRAINT fk_cbe5a3319d86650f FOREIGN KEY (user_id_id) REFERENCES "user"(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
