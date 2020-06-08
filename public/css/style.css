@@ -1,0 +1,89 @@
+/* Body style start */
+
+html{
+    height: 100%;
+}
+
+#bg{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("/img/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+
+img{
+    max-width: 100%;
+    height: auto;
+    transition: 1s linear;
+}
+
+img:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.img-container{
+    overflow: hidden;
+}
+
+.card{
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: 0.1s linear;
+}
+
+.card:hover{
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.5);
+}
+
+/* Body style end */
+
+/* About style start */
+
+.about-p{
+    font-size: 19px;
+}
+
+/* About style end */
+
+/* Footer style start */
+
+.footer-content{
+    height: 125px;
+    width: 100%;
+    background: #243238;
+    border-top:1px solid #1b1e21;
+}
+
+.footer-text{
+    color: #f8f9fa;
+}
+
+.footer-copyright{
+    height: 60px;
+    width: 100%;
+    background: #1c2331;
+}
+
+.btn_footer{
+    border-color: white;
+    border-width: 3px;
+    background: #007bff;
+    display: inline-block;
+    width: 100px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    color: white;
+}
+
+.btn_footer:hover{
+    background: #28a745;
+    text-decoration: none;
+    color: white;
+}
+
+/* Footer style end */

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Личная библиотека книг{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+                  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="/css/style.css">
+        {% endblock %}
+    </head>
+    <body class="d-flex flex-column h-100">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ path('home') }}">Личная библиотека</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        {% if app.user != null %}
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('book_index') }}">Мои книги</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('book_new') }}">Создание книги</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                        <ul class="navbar-nav ml-auto">
+                            {% if app.user == null %}
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('app_login') }}">Вход</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('app_register') }}">Регистрация</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item active d-flex align-items-center">
+                                    <p class="text-center mb-0" style="color: white">Привет, {{ app.user.username }}</p>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('app_logout') }}">Выход</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="flex-shrink-0 mt-5">
+            <div id="bg"></div>
+            {% block body %}
+            {% endblock %}
+        </main>
+        <footer class="mt-auto">
+            <div class="container-fluid pl-0 pr-0">
+                <div class="footer-content d-flex align-items-center">
+                    <ul class="text-center py-2 ml-auto mr-auto">
+                        <li class="list-inline-item">
+                            <h5 class="footer-text">Узнайте больше о проекте</h5>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ path('about') }}" class="footer-text btn btn_footer">About</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-copyright">
+                    <!-- Copyright -->
+                    <div id="footer_content" class="text-center py-3"  style="color: #f8f9fa;">© 2020 Copyright:
+                        <a href="https://twi9gy.github.io/"> Samoylov</a>
+                    </div>
+                    <!-- Copyright -->
+                </div>
+            </div>
+        </footer>
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+</html>

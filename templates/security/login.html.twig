@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-12 card mt-5 mb-5 ml-auto mr-auto">
+                <form method="post">
+
+                    <h1 class="h3 mb-3 font-weight-normal text-center mt-3">Авторизация</h1>
+
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <label for="inputUsername">Имя пользователя</label>
+                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+                    <label for="inputPassword">Пароль</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    <button class="btn btn-lg btn-primary mt-3 mb-3" type="submit">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
